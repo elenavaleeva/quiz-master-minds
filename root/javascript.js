@@ -1,138 +1,149 @@
-// create a quiz class
-class Quiz {
-  constructor(questions) {
-    this.score = 0;
-    this.questions = questions;
-    this.questionsIndex = 0;
-  }
+let question = document.getElementById("question")
+let choices = Array.from(document.getElementsByClassName("choice-text"));
+let questionCounterText =document.getElementById("questionCounter");
+let scoreText = document.getElementById("score");
 
-  getQuestionsIndex() {
-    return this.questions[this.questionsIndex];
-  }
+let currentQuestion = {};
+let acceptingAnswers = false;
+let score = 0;
+let questionCounter = 0;
+let availableQuestions = [];
 
-  guess(answer) {
-    if (this.getQuestionsIndex().isCorrectAnswer(answer)) {
-      this.score++;
-    }
-    this.questionsIndex++;
-  }
-
-  isEnded() {
-    return this.getQuestionsIndex === this.questions.length;
-  }
-}
-
-// Create a question class
-class Question {
-  constructor(text, choice, answer) {
-    this.text = text;
-    this.choice = choice;
-    this.answer = answer;
-  }
-
-  isCorrectAnswer(choice) {
-    return this.answer === choice;
-  }
-}
 
 
 // create quiz questions 
 let questions = [
-  new Question(
-    "Hyper Text Markup Language Stands For", ["JQuery", "XHTML", "CSS", "HTML"], "HTML"
-  ),
-  new Question(
-    "Hyper next", ["Option1 Q2 ", "Option2 Q2", "PHP", "HTML"], "HTML"
-  ),
-  new Question(
-    "Question 3", ["Option1 Q3", "Option2 Q3", "Option3 Q3", "HTML"], "HTML"
-  ),
-  new Question(
-    "Question 4", ["JQuery", "XHTML", "CSS", "HTML"], "HTML"
-  ),
+  {
+  question:   "Hyper Text Markup Language Stands For?",
+  choice1:    "JQuery",
+  choice2:    "XHTML",
+  choice3:    "CSS",
+  choice4:    "HTML", 
+  answer: 4
+  },
+
+  {
+    question:  "Cascading Style sheet for?",
+    choice1:   "JQuery",
+    choice2:   "XHTML",
+    choice3:   "CSS",
+    choice4:   "HTML", 
+    answer: 3
+    },
+    {
+    question:  "Which is a JavaScript Framework?",
+    choice1:   "React",
+    choice2:   "Laravel",
+    choice3:   "Django",
+    choice4:   "SASS", 
+    answer: 1
+      },
+      {
+    question:  "Which is a backend language?", 
+    choice1:   "PHP",
+    choice2:   "HTML",
+    choice3:   "React",
+    choice4:   "ALL", 
+    answer: 1
+     },
+     {
+    question:  "Which  is best for Artificial intelligence?",
+    choice1:   "React", 
+    choice2:   "Laravel", 
+    choice3:   "Python", 
+    choice4:   "Sass", 
+    answer: 3
+     },
 ];
 console.log(questions);
 
-let quiz = new Quiz(questions);
+const CORRECT_BONUS = 1;
+const MAX_QUESTIONS = 5;
 
-//Display question 
-function displayQuestion() {
-  if (quiz.isEnded()) {
-    showScores();
-  } else {
+startGame =() => {
+  questionCounter = 0;
+  score = 0;
+  availableQuestions = [...questions];
+  getNewQuestion();
+}
 
-    showProgress();
+getNewQuestion =() => {
 
-    //show question
-    let questionElement = document.getElementById("question");
-    // console.log(new Question);
-    // questionElement.getElementsByClassName(new Question);
-    questionElement.innerHTML = questions[quiz.questionsIndex].text
-    // show options
-    // let choices = ["choice0", "choice1", "choice2", "choice3"];
-    let choices = questions[quiz.questionsIndex].choice;
-    // let choice = quiz.getQuestionsIndex("choices");
-    // let options = ["btn0", "btn1", "btn2", "btn3"];
-    // let option = quiz.getQuestionsIndex("options");
-    console.log(quiz.getQuestionsIndex())
-    for (let i = 0; i < choices.length; i++) {
-      let choiceElement = document.getElementById("choice" + i);
-      choiceElement.innerHTML = choices[i];
-      var button = document.getElementById(`btn${i}`);
-      button.onclick = function (event) {
-        let selectedAnswer = event.target.childNodes[1].innerHTML;
-        quiz.guess(selectedAnswer);
-        displayQuestion();
-        
-      }
-      // let optionElement = document.getElementById("option" + i);
-      // let showProgress = quiz.getQuestionsIndex(option, choice);
-    }
-    // console.log(showProgress);
-    // console.log(displayQuestion);
-    // showProgress();
+  if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS ) {
 
+ localStorage.setItem("mostRecentScore", score);
+    return window.location.assign(src="./end.html");
+    
   }
+
+
+    questionCounter++;
+    questionCounterText.innerText = questionCounter +"/"+ MAX_QUESTIONS;
+
+
+
+   let questionsIndex = Math.floor(Math.random() * availableQuestions.length);
+  currentQuestion = availableQuestions[questionsIndex];
+  question.innerText = currentQuestion.question;
+
+  choices.forEach( choice => {
+    let number = choice.dataset['number'];
+    choice.innerText = currentQuestion['choice' + number];
+  });
+
+  availableQuestions.splice(questionsIndex, 1);
+  acceptingAnswers = true;
 };
 
-//guess function
-// function guess(id, guess) {
-//   var button = document.getElementById(id);
-//   button.onclick = function () {
-//     quiz.guess(guess);
-//     displayQuestion();
-//   }
-// }
+choices.forEach(choice => {
+  choice.addEventListener('click', e => {
+ if (!acceptingAnswers) {
+return;
+ }
 
 
-//show quiz progress
-function showProgress() {
-  let currentQuestionNumber = quiz.questionsIndex + 1;
-  let progressElement = document.getElementById("progress");
-  progressElement.innerHTML = "Question "+ [currentQuestionNumber] + "of" + [quiz.questions.length];
+ acceptingAnswers = false;
+ let selectedChoice = e.target;
+ let selectedAnswer = selectedChoice.dataset["number"];
+
+ let classToApply = "incorrect";
+if ( selectedAnswer == currentQuestion.answer ) {
+  classToApply = "correct";
 }
 
-// show score
-let finalScore = document.getElementById("score");
-let quizRepeat = document.getElementsByClassName("quiz-repeat");
-let quizQuestion = document.getElementById("questions");
-function showScores() {
-  let quizEndHTML = Quiz(Completed);
-  finalScore = quiz.score;
-  quizQuestion = quiz.questions.length;
 
+selectedChoice.parentElement.classList.add(classToApply);
+selectedChoice.parentElement.classList.remove(classToApply);
+ if (classToApply === "correct") {
+  incrementScore(CORRECT_BONUS);
+ }
+console.log();
+ getNewQuestion();
+  });
+});
+
+incrementScore = num => {
+  score += num;
+  scoreText.innerText = score;
 }
 
-let quizElement = document.getElementsByClassName("Quiz");
-quizEndHTML = quizElement.innerHTML;
+startGame();
+
+
+let username = document.getElementById("username");
+let saveScoreBtn = document.getElementById("saveScoreBtn");
+let finalScore = document.getElementById("finalScore");
+let mostRecentScore = localStorage.getItem("mostRecentScore");
 
 
 
-//display questions
-displayQuestion();
+saveHighScore = (e) => {
+  e.preventDefault();
+}
 
-// add countDown
-var time = 2;
+
+// // add countDown
+var time = 1;
 var quizTimeMinutes = time * 60 * 60;
 quizTime = quizTimeMinutes / 60;
 
@@ -153,4 +164,5 @@ function startCountDown() {
 }
 
 startCountDown();
+
 
