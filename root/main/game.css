@@ -1,0 +1,32 @@
+
+body {
+    background-color: blue;
+    justify-content: center;
+    text-align: center;
+
+
+}
+.btnStart {
+ margin-bottom: 80px;
+ justify-content: center;
+ font-size: 200px;
+ padding-right: 200px;
+ text-align: center;
+ background-color: aqua;
+ box-shadow: 10px 10px grey;
+ border-radius: 10px;
+ text-shadow: 5px 5px grey;
+
+}
+
+.btn {
+    margin-bottom: 80px;
+    justify-content: center;
+    font-size: 60px;
+    padding-right: 200px;
+    text-align: center;
+    background-color: aqua;
+    box-shadow: 10px 10px grey;
+    border-radius: 10px;
+    text-shadow: 5px 5px grey;  
+}

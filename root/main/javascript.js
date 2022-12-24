@@ -1,6 +1,6 @@
 let question = document.getElementById("question")
 let choices = Array.from(document.getElementsByClassName("choice-text"));
-let questionCounterText =document.getElementById("questionCounter");
+let questionCounterText = document.getElementById("questionCounter");
 let scoreText = document.getElementById("score");
 
 let currentQuestion = {};
@@ -8,57 +8,79 @@ let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
-
-
+var time = 2;
+var quizTimeMinutes = time * 60 * 60;
+quizTime = quizTimeMinutes / 60;
+const CORRECT_BONUS = 1;
+const MAX_QUESTIONS = 5;
 
 // create quiz questions 
 let questions = [
   {
-  question:   "Hyper Text Markup Language Stands For?",
-  choice1:    "JQuery",
-  choice2:    "XHTML",
-  choice3:    "CSS",
-  choice4:    "HTML", 
-  answer: 4
+    question: "Hyper Text Markup Language Stands For?",
+    choice1: "JQuery",
+    choice2: "XHTML",
+    choice3: "CSS",
+    choice4: "HTML",
+    answer: 4
   },
 
   {
-    question:  "Cascading Style sheet for?",
-    choice1:   "JQuery",
-    choice2:   "XHTML",
-    choice3:   "CSS",
-    choice4:   "HTML", 
+    question: "Cascading Style sheet for?",
+    choice1: "JQuery",
+    choice2: "XHTML",
+    choice3: "CSS",
+    choice4: "HTML",
     answer: 3
-    },
-    {
-    question:  "Which is a JavaScript Framework?",
-    choice1:   "React",
-    choice2:   "Laravel",
-    choice3:   "Django",
-    choice4:   "SASS", 
+  },
+  {
+    question: "Which is a JavaScript Framework?",
+    choice1: "React",
+    choice2: "Laravel",
+    choice3: "Django",
+    choice4: "SASS",
     answer: 1
-      },
-      {
-    question:  "Which is a backend language?", 
-    choice1:   "PHP",
-    choice2:   "HTML",
-    choice3:   "React",
-    choice4:   "ALL", 
+  },
+  {
+    question: "Which is a backend language?",
+    choice1: "PHP",
+    choice2: "HTML",
+    choice3: "React",
+    choice4: "ALL",
     answer: 1
-     },
-     {
-    question:  "Which  is best for Artificial intelligence?",
-    choice1:   "React", 
-    choice2:   "Laravel", 
-    choice3:   "Python", 
-    choice4:   "Sass", 
+  },
+  {
+    question: "Which  is best for Artificial intelligence?",
+    choice1: "React",
+    choice2: "Laravel",
+    choice3: "Python",
+    choice4: "Sass",
     answer: 3
-     },
+  }
 ];
 console.log(questions);
 
-const CORRECT_BONUS = 1;
-const MAX_QUESTIONS = 5;
+
+
+let counting = document.getElementById("count-down");
+
+function startCountDown() {
+  let quizTimer = setInterval(function () {
+    if (quizTime <= 0) {
+      clearInterval(quizTimer);
+
+    } else {
+      quizTime--;
+      let sec = Math.floor(quizTime % 60);
+      let min = Math.floor(quizTime / 60) % 60;
+      counting.innerHTML = "TIME:" + [min] + ":" + [sec];
+
+    }
+  }, 1000)
+}
+
+startCountDown();
+
 
 startGame =() => {
   questionCounter = 0;
@@ -75,10 +97,8 @@ getNewQuestion =() => {
     return window.location.assign(src="./end.html");
     
   }
-
-
-    questionCounter++;
-    questionCounterText.innerText = questionCounter +"/"+ MAX_QUESTIONS;
+  questionCounter++;
+  questionCounterText.innerText = questionCounter +"/"+ MAX_QUESTIONS;
 
 
 
@@ -109,6 +129,8 @@ return;
  let classToApply = "incorrect";
 if ( selectedAnswer == currentQuestion.answer ) {
   classToApply = "correct";
+}else {
+  quizTime = quizTime - 10;
 }
 
 
@@ -141,28 +163,10 @@ saveHighScore = (e) => {
   e.preventDefault();
 }
 
+// function display() {
+// quizTime === 0;
+// document.display.scoreText.location.assign(src="./end.html");
+// return
+// }
 
-// // add countDown
-var time = 1;
-var quizTimeMinutes = time * 60 * 60;
-quizTime = quizTimeMinutes / 60;
-
-let counting = document.getElementById("count-down");
-
-function startCountDown() {
-  let quizTimer = setInterval(function () {
-    if (quizTime <= 0) {
-      clearInterval(quizTimer);
-
-    } else {
-      quizTime--;
-      let sec = Math.floor(quizTime % 60);
-      let min = Math.floor(quizTime / 60) % 60;
-      counting.innerHTML = "TIME:" + [min] + ":" + [sec];
-    }
-  }, 1000)
-}
-
-startCountDown();
-
-
+// display();

@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Congrats!</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./game.css">
 </head>
 <body>
     <div class="container">
         <div id="end"  class="flex-center flex-column">
-     <h1 id="finalScore"></h1>
+     <h1 id="finalScore">0</h1>
+     <ul id="hiScoreList"></ul>
+     
      <form>
         <input type="text" 
         name="username" 
@@ -21,8 +23,8 @@
         id="saveScoreBtn"
         onclick="saveHighScore(event)">save</button>
         </form>
-        <a class="btn" href="game.html"> PLAY AGAIN</a>
-        <a class="btn" href=",/">GO HOME </a>
+        <a class="btn" href="./game.html"> PLAY AGAIN</a>
+        <a class="btn" href="./game.html">GO HOME </a>
         </div> 
     </div>
     <script src="./javascript.js"></script>

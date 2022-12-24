@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap'); */
+
 :root {
   --white: #fff;
   --black:#1c2b2d;
@@ -21,18 +21,10 @@ html {
 }
 
 body {
-font-family: 'open Sans', 'sans-serif';
-background-color: var(--light-blue);
+  font-family: 'open Sans', 'sans-serif';
+  background-color: var(--light-blue);
 }
 
-/* p {
-  font-size: 1.6rem;
-  line-height: 1.5;
-} */
-
-/* img {
-  width: 100%;
-} */
 
 .container {
   max-width: 900px;
@@ -129,9 +121,9 @@ background-color: var(--light-blue);
 }
 
 .btnStart { 
- justify-content: center;
- text-align: center;
- margin-bottom: 100px;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 100px;
   background-color: #ddd;
   width: 100%;
   font-size: 10rem;
@@ -160,36 +152,12 @@ background-color: var(--light-blue);
   color: var(--white);
 }
 
-/* .container:active {
-  background-color: var(--color-sec);
-} */
-
 #score {
   color: var(--black);
   text-align: center;
   font-size: 2rem;
   margin-bottom: 4rem;
 }
-
-/* .quiz-repeat {
-  text-align: center;
-  margin: 0 auto;
-} */
-
-/* .quiz-repeat a {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-  background-color: orangered;
-  padding: 1rem;
-  border-radius: 5px;
-  transition: all .3s;
-} */
-
-/* .quiz-repeat a:hover {
-  background-color: var(--color-primary);
-} */
 
 .hidden {
   display: none;
@@ -236,8 +204,8 @@ display: flex;
 .btn:hover {
   cursor: pointer;
   box-shadow: 0 0.4rem 1.4rem 0 rgba( blue, alpha);
-transform: translate(-0.1rem);
-transition: transform 150ms;
+  transform: translate(-0.1rem);
+  transition: transform 150ms;
 }
 
 form {
