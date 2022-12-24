@@ -163,10 +163,3 @@ saveHighScore = (e) => {
   e.preventDefault();
 }
 
-// function display() {
-// quizTime === 0;
-// document.display.scoreText.location.assign(src="./end.html");
-// return
-// }
-
-// display();
